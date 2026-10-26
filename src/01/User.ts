@@ -6,13 +6,13 @@
 interface User {
     id: number;
     name: string;
-    age? : string;
+    age? : number;
     email? : string;
 }
 
 const users: User[] = [
-    {id: 1, name: 'Alice', age: '25', email: 'alice@example.com'},
-    {id: 2, name: 'Bob', age: '30', email: 'bob@example.com'},
+    {id: 1, name: 'Alice', age: 25, email: 'alice@example.com'},
+    {id: 2, name: 'Bob', age: 30, email: 'bob@example.com'},
     {id: 3, name: 'Charlie', email: 'charlie@example.com'}
 ];
 
@@ -41,3 +41,35 @@ function getUserNames(users: User[]): string[]{
 };
 
 console.log(filterAdults(users), getUserNames(users));
+
+/*
+实现 formatId(id: number | string): string；
+再写 getStatusText(status: 'todo' | 'done'): string。
+*/
+function formatId(id: number|string): string {
+    //判断不为空
+    if (id === null || id === undefined) {
+        return 'User ID: N/A';
+    }
+    if (typeof id === 'number') {
+        id = id.toString();
+    }
+    return `User ID: ${id}`;
+}
+
+let userId = formatId(123); // 返回 "User ID: 123"
+console.log(userId);
+
+/*
+status不是'todo' | 'done'，tsc编译直接报错
+*/
+function getStatusText(status: 'todo' | 'done'): string {
+    if (status === 'todo') {
+        return 'Status: To Do';
+    }else if (status === 'done') {
+        return 'Status: Done';
+    }else {
+        return 'Status: Unknown';
+    }
+}
+console.log(getStatusText('todo'));
