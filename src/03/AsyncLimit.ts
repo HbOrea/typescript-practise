@@ -19,6 +19,7 @@ async function mapLimit<T, R>(
   // 预留结果位置；按原索引写入，而不是按任务完成顺序 push。
   const results = new Array<R>(items.length);
   // 所有消费者通过闭包共享这个变量，用它记录下一个待领取的位置。
+  // 记录并发场景下，共享的信号量类似python semaphore，任务执行顺序，并存入结果中
   let nextIndex = 0;
 
   // 一个消费者：不断领取任务，直到没有任务
