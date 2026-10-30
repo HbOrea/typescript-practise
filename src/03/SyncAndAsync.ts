@@ -6,7 +6,7 @@ async function delay(ms: number): Promise<string> {
     });
 }
 
-async function main() {
+async function mainDemo() {
     console.time("顺序执行");
     await delay(500);
     await delay(500);
@@ -16,5 +16,3 @@ async function main() {
     await Promise.all([delay(500), delay(500), delay(500)]);
     console.timeEnd("并发执行");
 }
-
-main();
