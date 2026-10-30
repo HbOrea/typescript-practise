@@ -141,3 +141,45 @@ async function fetchJson(
     signal?.removeEventListener("abort", cancel);
   }
 }
+
+async function main(): Promise<void> {
+  const controller = new AbortController();
+
+  // 模拟用户 100ms 后点击“取消”。
+  // 删除这个计时器，就可以测试正常请求或超时。
+  const cancelTimer = setTimeout(() => controller.abort(), 100);
+
+  try {
+    const data = await fetchJson(
+      "https://jsonplaceholder.typicode.com/users/1",
+      3000,
+      controller.signal,
+    );
+
+    console.log(data);
+  } catch (error: unknown) {
+    if (error instanceof RequestError) {
+      switch (error.kind) {
+        case "http":
+          console.error("服务器返回错误状态：", error.status);
+          break;
+        case "network":
+          console.error("网络错误：", error.message);
+          break;
+        case "timeout":
+          console.error("请求超时");
+          break;
+        case "cancelled":
+          console.log("请求已主动取消");
+          break;
+      }
+    } else {
+      // 例如 JSON 解析失败。
+      console.error("其他错误：", error);
+    }
+  } finally {
+    clearTimeout(cancelTimer);
+  }
+}
+
+void main();
