@@ -1,3 +1,5 @@
+import type { User } from './User.js';
+
 class MemoryRepository<T extends { id: number }>{
     private items: T[];
 

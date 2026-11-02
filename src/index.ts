@@ -1,5 +1,5 @@
-import {filterFruitsByPrice} from './services/fruits-service';
-import type { Fruit } from './models/fruit';
+import {filterFruitsByPrice} from './services/fruits-service.js';
+import type { Fruit } from './models/fruit.js';
 
 const fruits:Fruit[] = [
   { name: 'Apple', price: 5 },

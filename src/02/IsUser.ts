@@ -1,4 +1,4 @@
-import type { User } from './User';
+import type { User } from './User.js';
 
 // 练习 4：类型谓词让调用方在 if 分支内将 unknown 收窄为 User。
 export function isUser(value: unknown): value is User {

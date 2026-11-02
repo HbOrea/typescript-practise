@@ -1,4 +1,4 @@
-import type { User } from './User';
+import type { User } from './User.js';
 
 // 练习 3：Pick 选出允许更新的字段，Partial 将它们变为可选。
 export type UserUpdate = Partial<Pick<User, 'name' | 'email'>>;
